@@ -6,6 +6,17 @@
 
 header {
     background-color: rgb(4, 11, 78);
+
+ 
+    animation: slideDown 0.5s;
+}
+@keyframes slideDown {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 li{

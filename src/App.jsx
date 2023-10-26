@@ -8,6 +8,8 @@ import Signup from "./compoents/Signup"
 import Search from "./compoents/Search"
 import Allbooks from "./compoents/Allbooks"
 import Adminlogin from "./compoents/Adminlogin"
+import Dashboard from "./compoents/Dashboard"
+import Loader from "./compoents/Loader"
 
 export const server = "http://localhost:4000/api/v1"
 
@@ -23,6 +25,8 @@ function App() {
         <Route path="/search" element={<Search />} />
         <Route path="/allbooks" element={<Allbooks />} />
         <Route path="/admin" element={<Adminlogin />} />
+        <Route path="/dashboard" element={<Dashboard/>} />
+        <Route path="/load" element={<Loader/>} />
       </Routes>
       <Footer/>
       <Toaster/>
