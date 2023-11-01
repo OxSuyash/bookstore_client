@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import "../styles/Header.scss"
+import axios from 'axios'
+import { server } from '../App'
+
 
 
 const Header = () => {

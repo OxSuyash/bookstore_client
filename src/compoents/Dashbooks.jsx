@@ -1,32 +1,43 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import Loader from './Loader'
+import axios from 'axios'
 import { server } from '../App'
-import axios from "axios"
+import { Link } from 'react-router-dom'
+import Adminmenubar from './Adminmenubar'
 
 
+const Dashbooks = () => {
 
-const Allbooks = () => {
     const [books, setBooks] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
         const getBooks = async () => {
-            const { data } = await axios.get(`${server}/user/book/all`, {
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                withCredentials: true
-            })
-            setBooks(data.books)
+            try {
+                setLoading(true)
+                const { data } = await axios.get(`${server}/admin/book/all`, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    withCredentials: true
+                })
+                setBooks(data.books)
+                setLoading(false)
+
+            } catch (error) {
+                console.log(error)
+            }
         }
         getBooks()
     }, [])
 
-    return (
-        <div className="blog-main">
-            <div className="blog-page-title">
-                <p>Booksdf all</p>
-            </div>
 
+    return (
+        loading ? <Loader /> : <div className="dashbooks-container">
+            <Adminmenubar/>
+            <div className="dashbooks-heading">
+                book  list
+            </div>
             {
                 books.map(book => {
                     return (
@@ -44,13 +55,14 @@ const Allbooks = () => {
                                     <div className="blog-desc">
                                         <p>{book.author} </p>
                                     </div>
-                                    <div className="view-book-button">
-                                        <Link to={`/book/${book._id}`} ><button>View book</button></Link>
+                                    <div className="blog-desc">
+                                        <p>{book.quantity} </p>
+                                    </div>
+                                    <div className="blog-desc">
+                                        <p>{String(new Date(book.createdAt).toLocaleString())} </p>
                                     </div>
 
                                 </div>
-
-
 
                             </div>
 
@@ -63,5 +75,4 @@ const Allbooks = () => {
     )
 }
 
-
-export default Allbooks
+export default Dashbooks
